@@ -9,9 +9,8 @@ import java.util.UUID;
 public class InMemoryPlayerRepository implements PlayerRepository {
 
   private final List<Player> players = List.of(
-    new Player(UUID.randomUUID(), "Masterdevil", 50),
-    new Player(UUID.randomUUID(), "Apark", 68),
-    new Player(UUID.randomUUID(), "Lanquemar", 99)
+    new Player("Masterdevil"),
+    new Player("Apark")
   );
 
   private UUID selectedPlayerID;
