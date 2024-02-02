@@ -10,6 +10,6 @@ public abstract class Displayable {
   protected Input input;
   protected Output output;
 
-  abstract public void show();
+  public abstract String show();
 
 }

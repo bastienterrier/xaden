@@ -19,24 +19,25 @@ public class PlayerSelection extends Displayable {
   }
 
   @Override
-  public void show() {
+  public String show() {
     List<Player> players = playerRepository.getAll();
 
     showPlayers(players);
 
-    Player player = selectPlayer(players);
+    selectPlayer(players);
 
-    output.display("You're now playing " + player.getName());
-
+    return "menu";
   }
 
-  private Player selectPlayer(List<Player> players) {
+  private void selectPlayer(List<Player> players) {
     int selectedUserIndex;
     do {
       selectedUserIndex = input.getInt();
     } while (selectedUserIndex < 1 || selectedUserIndex > players.size());
 
-    return players.get(selectedUserIndex - 1);
+    Player selectedPlayer = players.get(selectedUserIndex - 1);
+
+    playerRepository.setSelectedPlayer(selectedPlayer.getId());
   }
 
   private void showPlayers(List<Player> players) {

@@ -1,15 +1,15 @@
 package com.masterdevil.xaden.application;
 
-import com.masterdevil.xaden.player.selection.PlayerSelection;
+import com.masterdevil.xaden.io.ScreenNavigation;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TerminalApplication {
 
-  private final PlayerSelection playerSelection;
+  private final ScreenNavigation navigation;
 
-  public TerminalApplication(PlayerSelection playerSelection) {
-    this.playerSelection = playerSelection;
+  public TerminalApplication(ScreenNavigation navigation) {
+    this.navigation = navigation;
 
     System.out.println("\n" +
       " __      __       .__                                  __           ____  ___  _____  ________  ___________ _______   \n"
@@ -24,11 +24,11 @@ public class TerminalApplication {
       +
       "       \\/       \\/          \\/            \\/     \\/                       \\_/       \\/        \\/        \\/         \\/ \n");
 
-    run();
+    loop("player-selection");
   }
 
-  private void run() {
-    playerSelection.show();
+  private void loop(String target) {
+    loop(navigation.navigate(target));
   }
 
 }
