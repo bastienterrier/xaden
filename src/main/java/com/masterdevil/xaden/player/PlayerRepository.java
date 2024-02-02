@@ -1,10 +1,11 @@
 package com.masterdevil.xaden.player;
 
-import java.util.List;
+import io.vavr.collection.List;
+import java.util.UUID;
 
 public interface PlayerRepository {
 
   List<Player> getAll();
 
-  Player getById();
+  Player getById(UUID id);
 }

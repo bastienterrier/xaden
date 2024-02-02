@@ -2,14 +2,15 @@ package com.masterdevil.xaden.player.infrastructure;
 
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
-import java.util.List;
+import io.vavr.collection.List;
+import java.util.UUID;
 
 public class InMemoryPlayerRepository implements PlayerRepository {
 
   private final List<Player> players = List.of(
-    new Player("Masterdevil", 50),
-    new Player("Apark", 68),
-    new Player("Lanquemar", 99)
+    new Player(UUID.randomUUID(), "Masterdevil", 50),
+    new Player(UUID.randomUUID(), "Apark", 68),
+    new Player(UUID.randomUUID(), "Lanquemar", 99)
   );
 
   @Override
@@ -18,7 +19,7 @@ public class InMemoryPlayerRepository implements PlayerRepository {
   }
 
   @Override
-  public Player getById() {
+  public Player getById(UUID id) {
     return null;
   }
 }

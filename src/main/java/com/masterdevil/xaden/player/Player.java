@@ -1,5 +1,6 @@
 package com.masterdevil.xaden.player;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Player {
 
+  private UUID id;
   private String name;
   private int level;
 
