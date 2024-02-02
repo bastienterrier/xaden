@@ -1,4 +1,4 @@
-package com.masterdevil.xaden.menu;
+package com.masterdevil.xaden.menu.application;
 
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
@@ -9,11 +9,11 @@ import io.vavr.control.Option;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Menu extends Displayable {
+public class DisplayMenuUseCase extends Displayable {
 
   private final PlayerRepository playerRepository;
 
-  public Menu(Input input, Output output, PlayerRepository playerRepository) {
+  public DisplayMenuUseCase(Input input, Output output, PlayerRepository playerRepository) {
     super(input, output);
     this.playerRepository = playerRepository;
   }

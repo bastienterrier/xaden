@@ -1,4 +1,4 @@
-package com.masterdevil.xaden.player.selection;
+package com.masterdevil.xaden.player.application;
 
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
@@ -9,11 +9,11 @@ import io.vavr.collection.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PlayerSelection extends Displayable {
+public class SelectPlayerUseCase extends Displayable {
 
   private final PlayerRepository playerRepository;
 
-  public PlayerSelection(Input input, Output output, PlayerRepository playerRepository) {
+  public SelectPlayerUseCase(Input input, Output output, PlayerRepository playerRepository) {
     super(input, output);
     this.playerRepository = playerRepository;
   }

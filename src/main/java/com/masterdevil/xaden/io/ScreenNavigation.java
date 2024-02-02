@@ -1,21 +1,22 @@
 package com.masterdevil.xaden.io;
 
-import com.masterdevil.xaden.menu.Menu;
-import com.masterdevil.xaden.player.map.Navigation;
-import com.masterdevil.xaden.player.selection.PlayerSelection;
+import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
+import com.masterdevil.xaden.player.application.NavigateUseCase;
+import com.masterdevil.xaden.player.application.SelectPlayerUseCase;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ScreenNavigation {
 
-  private final Menu menu;
-  private final PlayerSelection playerSelection;
-  private final Navigation navigation;
+  private final DisplayMenuUseCase displayMenuUseCase;
+  private final SelectPlayerUseCase selectPlayerUseCase;
+  private final NavigateUseCase navigateUseCase;
 
-  public ScreenNavigation(Menu menu, PlayerSelection playerSelection, Navigation navigation) {
-    this.menu = menu;
-    this.playerSelection = playerSelection;
-    this.navigation = navigation;
+  public ScreenNavigation(DisplayMenuUseCase displayMenuUseCase, SelectPlayerUseCase selectPlayerUseCase,
+    NavigateUseCase navigateUseCase) {
+    this.displayMenuUseCase = displayMenuUseCase;
+    this.selectPlayerUseCase = selectPlayerUseCase;
+    this.navigateUseCase = navigateUseCase;
   }
 
   /**
@@ -24,11 +25,11 @@ public class ScreenNavigation {
   public String navigate(String target) {
     return switch (target) {
       case "player-selection":
-        yield playerSelection.show();
+        yield selectPlayerUseCase.show();
       case "navigation":
-        yield navigation.show();
+        yield navigateUseCase.show();
       default:
-        yield menu.show();
+        yield displayMenuUseCase.show();
     };
   }
 }
