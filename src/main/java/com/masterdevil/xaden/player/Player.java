@@ -3,8 +3,8 @@ package com.masterdevil.xaden.player;
 import static com.masterdevil.xaden.domain.Unit.UNIT;
 
 import com.masterdevil.xaden.domain.Unit;
-import com.masterdevil.xaden.map.Direction;
-import com.masterdevil.xaden.map.Map;
+import com.masterdevil.xaden.player.map.Direction;
+import com.masterdevil.xaden.player.map.Map;
 import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
@@ -22,15 +22,17 @@ public class Player {
   private String name;
   private int level;
   private Tuple2<Integer, Integer> coordinates;
+  private Map map;
 
-  public Player(String name) {
+  public Player(String name, Map map) {
     this.name = name;
     this.level = 1;
     this.id = UUID.randomUUID();
     this.coordinates = new Tuple2<>(0, 0);
+    this.map = map;
   }
 
-  static Tuple2<Integer, Integer> navigateTo(Direction direction, Tuple2<Integer, Integer> coordinates) {
+  static Tuple2<Integer, Integer> getTargetedLocation(Direction direction, Tuple2<Integer, Integer> coordinates) {
     int targetX = coordinates._1;
     int targetY = coordinates._2;
 
@@ -44,8 +46,8 @@ public class Player {
     return new Tuple2<>(targetX, targetY);
   }
 
-  public Either<Exception, Unit> navigateTo(Map map, Direction direction) {
-    Tuple2<Integer, Integer> targetCoordinates = navigateTo(direction, coordinates);
+  public Either<Exception, Unit> navigateTo(Direction direction) {
+    Tuple2<Integer, Integer> targetCoordinates = getTargetedLocation(direction, coordinates);
 
     if (targetCoordinates._1 < 0 || targetCoordinates._1 >= map.getHeight()
       || targetCoordinates._2 < 0 || targetCoordinates._2 >= map.getWidth()

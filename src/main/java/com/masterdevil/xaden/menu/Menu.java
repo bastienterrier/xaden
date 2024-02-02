@@ -28,7 +28,9 @@ public class Menu extends Displayable {
 
     Player player = maybePlayer.get();
 
-    output.display(String.format("---- %s - lvl. %d ---- ", player.getName(), player.getLevel()));
+    output.display(
+      String.format("---- %s - lvl. %d [%d;%d] ----", player.getName(), player.getLevel(), player.getCoordinates()._1,
+        player.getCoordinates()._2));
     output.display("What do you wanna do?");
     output.display("1. Let's move");
     output.display("2. See my inventory");

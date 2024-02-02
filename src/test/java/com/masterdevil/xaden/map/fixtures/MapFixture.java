@@ -2,8 +2,8 @@ package com.masterdevil.xaden.map.fixtures;
 
 import static io.vavr.API.List;
 
-import com.masterdevil.xaden.map.Map;
-import com.masterdevil.xaden.map.MapZone;
+import com.masterdevil.xaden.player.map.Map;
+import com.masterdevil.xaden.player.map.MapZone;
 
 public class MapFixture {
 

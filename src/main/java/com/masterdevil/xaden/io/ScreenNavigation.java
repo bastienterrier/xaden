@@ -1,7 +1,7 @@
 package com.masterdevil.xaden.io;
 
-import com.masterdevil.xaden.map.Navigation;
 import com.masterdevil.xaden.menu.Menu;
+import com.masterdevil.xaden.player.map.Navigation;
 import com.masterdevil.xaden.player.selection.PlayerSelection;
 import org.springframework.stereotype.Component;
 

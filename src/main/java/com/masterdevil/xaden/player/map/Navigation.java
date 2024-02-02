@@ -1,11 +1,10 @@
-package com.masterdevil.xaden.map;
+package com.masterdevil.xaden.player.map;
 
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
 import com.masterdevil.xaden.io.Output;
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
-import io.vavr.API;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,7 +33,7 @@ public class Navigation extends Displayable {
       default -> Direction.WEST;
     };
 
-    return player.navigateTo(new Map(API.List(API.List())), direction)
+    return player.navigateTo(direction)
       .map(ignored -> "menu")
       .peekLeft(error -> output.display(error.getMessage()))
       .getOrElse("navigation");
