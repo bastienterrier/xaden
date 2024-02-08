@@ -1,6 +1,5 @@
 package com.masterdevil.xaden.player;
 
-import static com.masterdevil.xaden.map.fixtures.MapFixture.MAP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.masterdevil.xaden.domain.Unit;
@@ -26,7 +25,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidBounds() {
-    Player player = new Player("Masterdevil", MAP);
+    Player player = new Player("Masterdevil");
 
     assertBoundsError(player.navigateTo(Direction.WEST));
     assertBoundsError(player.navigateTo(Direction.NORTH));
@@ -34,7 +33,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidLevel() {
-    Player player = new Player("Masterdevil", MAP);
+    Player player = new Player("Masterdevil");
 
     player.navigateTo(Direction.EAST);
 
@@ -46,7 +45,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_success() {
-    Player player = new Player("Masterdevil", MAP);
+    Player player = new Player("Masterdevil");
 
     Either<Exception, Unit> result = player.navigateTo(Direction.EAST);
 

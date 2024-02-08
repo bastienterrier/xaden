@@ -20,7 +20,7 @@ public class DisplayMenuUseCase extends Displayable {
 
   @Override
   public String show() {
-    Option<Player> maybePlayer = playerRepository.getSelectedPlayer();
+    Option<Player> maybePlayer = playerRepository.getSelectedPlayer().get();
 
     if (maybePlayer.isEmpty()) {
       return "player-selection";
@@ -28,9 +28,7 @@ public class DisplayMenuUseCase extends Displayable {
 
     Player player = maybePlayer.get();
 
-    output.display(
-      String.format("---- %s - lvl. %d [%d;%d] ----", player.getName(), player.getLevel(), player.getCoordinates()._1,
-        player.getCoordinates()._2));
+    output.display(player.toString());
     output.display("What do you wanna do?");
     output.display("1. Let's move");
     output.display("2. See my inventory");

@@ -20,11 +20,9 @@ public class SelectPlayerUseCase extends Displayable {
 
   @Override
   public String show() {
-    List<Player> players = playerRepository.getAll();
-
-    showPlayers(players);
-
-    selectPlayer(players);
+    playerRepository.getAll()
+      .peek(this::showPlayers)
+      .peek(this::selectPlayer);
 
     return "menu";
   }

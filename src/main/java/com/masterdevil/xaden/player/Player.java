@@ -5,6 +5,7 @@ import static com.masterdevil.xaden.domain.Unit.UNIT;
 import com.masterdevil.xaden.domain.Unit;
 import com.masterdevil.xaden.player.map.Direction;
 import com.masterdevil.xaden.player.map.Map;
+import com.masterdevil.xaden.player.map.MapZone;
 import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
@@ -18,18 +19,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Player {
 
+  private static MapZone PLAIN = new MapZone("plain", 1);
+  private static MapZone MOUNTAIN = new MapZone("mountain", 10);
+  private static Map MAP = new Map(
+    API.List(
+      API.List(PLAIN, PLAIN, MOUNTAIN),
+      API.List(PLAIN, PLAIN, MOUNTAIN)
+    ));
+
   private UUID id;
   private String name;
   private int level;
   private Tuple2<Integer, Integer> coordinates;
   private Map map;
 
-  public Player(String name, Map map) {
+  public Player(String name) {
     this.name = name;
     this.level = 1;
     this.id = UUID.randomUUID();
     this.coordinates = new Tuple2<>(0, 0);
-    this.map = map;
+    this.map = MAP;
   }
 
   static Tuple2<Integer, Integer> getTargetedLocation(Direction direction, Tuple2<Integer, Integer> coordinates) {
@@ -67,4 +76,8 @@ public class Player {
     return API.Right(UNIT);
   }
 
+  @Override
+  public String toString() {
+    return String.format("---- %s - lvl. %d [%d;%d] ----", name, level, coordinates._1, coordinates._2);
+  }
 }

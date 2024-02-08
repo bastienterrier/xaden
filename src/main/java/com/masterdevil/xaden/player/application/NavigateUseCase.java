@@ -20,23 +20,27 @@ public class NavigateUseCase extends Displayable {
 
   @Override
   public String show() {
-    Player player = playerRepository.getSelectedPlayer().get();
+    Player player = playerRepository.getSelectedPlayer().get().get();
 
     output.display("1. Go North");
     output.display("2. Go East");
     output.display("3. Go South");
     output.display("4. Go West");
+    output.display("5. Exit");
 
     Direction direction = switch (input.getInt()) {
       case 1 -> Direction.NORTH;
       case 2 -> Direction.EAST;
       case 3 -> Direction.SOUTH;
-      default -> Direction.WEST;
+      case 4 -> Direction.WEST;
+      default -> null;
     };
 
-    return player.navigateTo(direction)
-      .map(ignored -> "menu")
-      .peekLeft(error -> output.display(error.getMessage()))
-      .getOrElse("navigation");
+    return direction != null ?
+      player.navigateTo(direction)
+        .map(ignored -> "menu")
+        .peekLeft(error -> output.display(error.getMessage()))
+        .getOrElse("navigation")
+      : "menu";
   }
 }
