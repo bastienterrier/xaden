@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.masterdevil.xaden.domain.Unit;
 import com.masterdevil.xaden.map.Direction;
+import com.masterdevil.xaden.map.fixtures.MapFixture;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
@@ -27,17 +28,17 @@ class PlayerTest {
   void navigateTo_invalidBounds() {
     Player player = new Player("Masterdevil");
 
-    assertBoundsError(player.navigateTo(Direction.WEST));
-    assertBoundsError(player.navigateTo(Direction.NORTH));
+    assertBoundsError(player.navigateTo(Direction.WEST, MapFixture.MAP));
+    assertBoundsError(player.navigateTo(Direction.NORTH, MapFixture.MAP));
   }
 
   @Test
   void navigateTo_invalidLevel() {
     Player player = new Player("Masterdevil");
 
-    player.navigateTo(Direction.EAST);
+    player.navigateTo(Direction.EAST, MapFixture.MAP);
 
-    Either<Exception, Unit> result = player.navigateTo(Direction.EAST);
+    Either<Exception, Unit> result = player.navigateTo(Direction.EAST, MapFixture.MAP);
 
     assertThat(result.isLeft()).isTrue();
     assertThat(result.getLeft().getMessage()).isEqualTo("Player do not have the required level to access the zone");
@@ -47,7 +48,7 @@ class PlayerTest {
   void navigateTo_success() {
     Player player = new Player("Masterdevil");
 
-    Either<Exception, Unit> result = player.navigateTo(Direction.EAST);
+    Either<Exception, Unit> result = player.navigateTo(Direction.EAST, MapFixture.MAP);
 
     assertThat(result.isRight()).isTrue();
     assertThat(player.getCoordinates()).isEqualTo(new Tuple2<>(0, 1));

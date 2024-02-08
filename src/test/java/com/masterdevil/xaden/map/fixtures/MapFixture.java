@@ -7,8 +7,8 @@ import com.masterdevil.xaden.map.MapZone;
 
 public class MapFixture {
 
-  static MapZone PLAIN = new MapZone("plain", 1);
-  static MapZone MOUNTAIN = new MapZone("mountain", 10);
+  public static MapZone PLAIN = new MapZone("plain", 1);
+  public static MapZone MOUNTAIN = new MapZone("mountain", 10);
   public static Map MAP = new Map(
     List(
       List(PLAIN, PLAIN, MOUNTAIN),

@@ -5,7 +5,6 @@ import static com.masterdevil.xaden.domain.Unit.UNIT;
 import com.masterdevil.xaden.domain.Unit;
 import com.masterdevil.xaden.map.Direction;
 import com.masterdevil.xaden.map.Map;
-import com.masterdevil.xaden.map.MapZone;
 import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
@@ -19,29 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Player {
 
-  /**
-   * Refactor default MAP
-   */
-  private static final MapZone PLAIN = new MapZone("plain", 1);
-  private static final MapZone MOUNTAIN = new MapZone("mountain", 10);
-  private static final Map DEFAULT_MAP = new Map(
-    API.List(
-      API.List(PLAIN, PLAIN, MOUNTAIN),
-      API.List(PLAIN, PLAIN, MOUNTAIN)
-    ));
-
   private UUID id;
   private String name;
   private int level;
   private Tuple2<Integer, Integer> coordinates;
-  private Map map;
 
   public Player(String name) {
     this.name = name;
     this.level = 1;
     this.id = UUID.randomUUID();
     this.coordinates = new Tuple2<>(0, 0);
-    this.map = DEFAULT_MAP;
   }
 
   static Tuple2<Integer, Integer> getTargetedLocation(Direction direction, Tuple2<Integer, Integer> coordinates) {
@@ -58,7 +44,7 @@ public class Player {
     return new Tuple2<>(targetX, targetY);
   }
 
-  public Either<Exception, Unit> navigateTo(Direction direction) {
+  public Either<Exception, Unit> navigateTo(Direction direction, Map map) {
     Tuple2<Integer, Integer> targetCoordinates = getTargetedLocation(direction, coordinates);
 
     if (targetCoordinates._1 < 0 || targetCoordinates._1 >= map.getHeight()

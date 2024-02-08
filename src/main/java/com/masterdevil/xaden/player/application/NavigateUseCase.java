@@ -4,6 +4,7 @@ import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
 import com.masterdevil.xaden.io.Output;
 import com.masterdevil.xaden.map.Direction;
+import com.masterdevil.xaden.map.Map;
 import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
@@ -40,7 +41,7 @@ public class NavigateUseCase extends Displayable {
     };
 
     return API.Right(direction != null
-      ? player.navigateTo(direction)
+      ? player.navigateTo(direction, Map.DEFAULT_MAP)
       .map(ignored -> DisplayMenuUseCase.class)
       .peekLeft(error -> output.display(error.getMessage()))
       .getOrElse(DisplayMenuUseCase.class) //TODO use navigate
