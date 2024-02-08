@@ -26,7 +26,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidBounds() {
-    Player player = new Player("Masterdevil");
+    Player player = new Player("Masterdevil", Race.SWORDSMAN);
 
     assertBoundsError(player.navigateTo(Direction.WEST, MapFixture.MAP));
     assertBoundsError(player.navigateTo(Direction.NORTH, MapFixture.MAP));
@@ -34,7 +34,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidLevel() {
-    Player player = new Player("Masterdevil");
+    Player player = new Player("Masterdevil", Race.SWORDSMAN);
 
     player.navigateTo(Direction.EAST, MapFixture.MAP);
 
@@ -46,7 +46,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_success() {
-    Player player = new Player("Masterdevil");
+    Player player = new Player("Masterdevil", Race.SWORDSMAN);
 
     Either<Exception, Unit> result = player.navigateTo(Direction.EAST, MapFixture.MAP);
 
@@ -56,7 +56,7 @@ class PlayerTest {
 
   @Test
   void toString_override() {
-    Player player = new Player("Masterdevil");
+    Player player = new Player("Masterdevil", Race.SWORDSMAN);
 
     assertThat(player).hasToString("---- Masterdevil - lvl. 1 - hp. 50 - [0;0] ----");
   }

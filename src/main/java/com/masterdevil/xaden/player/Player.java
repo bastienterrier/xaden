@@ -1,7 +1,6 @@
 package com.masterdevil.xaden.player;
 
 import static com.masterdevil.xaden.domain.Unit.UNIT;
-import static io.vavr.API.List;
 
 import com.masterdevil.xaden.domain.Fightable;
 import com.masterdevil.xaden.domain.Unit;
@@ -18,15 +17,14 @@ public class Player extends Fightable {
 
   private final UUID id;
   private final String name;
+  private final Race race;
   private Tuple2<Integer, Integer> coordinates;
-  //TODO: Add `race` which contain all skills
 
-  public Player(String name) {
-    super(1, 50, 10, List(
-      //TODO: use `race.getSkills()` here
-    ));
-    this.name = name;
+  public Player(String name, Race race) {
+    super(1, 50, 10, race.skills());
     this.id = UUID.randomUUID();
+    this.name = name;
+    this.race = race;
     this.coordinates = new Tuple2<>(0, 0);
   }
 
