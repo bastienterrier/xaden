@@ -19,9 +19,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Player {
 
-  private static MapZone PLAIN = new MapZone("plain", 1);
-  private static MapZone MOUNTAIN = new MapZone("mountain", 10);
-  private static Map MAP = new Map(
+  /**
+   * Refactor default MAP
+   */
+  private static final MapZone PLAIN = new MapZone("plain", 1);
+  private static final MapZone MOUNTAIN = new MapZone("mountain", 10);
+  private static final Map DEFAULT_MAP = new Map(
     API.List(
       API.List(PLAIN, PLAIN, MOUNTAIN),
       API.List(PLAIN, PLAIN, MOUNTAIN)
@@ -38,7 +41,7 @@ public class Player {
     this.level = 1;
     this.id = UUID.randomUUID();
     this.coordinates = new Tuple2<>(0, 0);
-    this.map = MAP;
+    this.map = DEFAULT_MAP;
   }
 
   static Tuple2<Integer, Integer> getTargetedLocation(Direction direction, Tuple2<Integer, Integer> coordinates) {

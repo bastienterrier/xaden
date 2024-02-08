@@ -52,4 +52,11 @@ class PlayerTest {
     assertThat(result.isRight()).isTrue();
     assertThat(player.getCoordinates()).isEqualTo(new Tuple2<>(0, 1));
   }
+
+  @Test
+  void toString_override() {
+    Player player = new Player("Masterdevil");
+
+    assertThat(player).hasToString("---- Masterdevil - lvl. 1 [0;0] ----");
+  }
 }
