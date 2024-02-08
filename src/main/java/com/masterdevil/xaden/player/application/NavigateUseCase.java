@@ -3,9 +3,12 @@ package com.masterdevil.xaden.player.application;
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
 import com.masterdevil.xaden.io.Output;
+import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
 import com.masterdevil.xaden.player.map.Direction;
+import io.vavr.API;
+import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +22,7 @@ public class NavigateUseCase extends Displayable {
   }
 
   @Override
-  public String show() {
+  public Either<Exception, Class<? extends Displayable>> show() {
     Player player = playerRepository.getSelectedPlayer().get().get();
 
     output.display("1. Go North");
@@ -36,11 +39,11 @@ public class NavigateUseCase extends Displayable {
       default -> null;
     };
 
-    return direction != null ?
-      player.navigateTo(direction)
-        .map(ignored -> "menu")
-        .peekLeft(error -> output.display(error.getMessage()))
-        .getOrElse("navigation")
-      : "menu";
+    return API.Right(direction != null
+      ? player.navigateTo(direction)
+      .map(ignored -> DisplayMenuUseCase.class)
+      .peekLeft(error -> output.display(error.getMessage()))
+      .getOrElse(DisplayMenuUseCase.class) //TODO use navigate
+      : DisplayMenuUseCase.class);
   }
 }

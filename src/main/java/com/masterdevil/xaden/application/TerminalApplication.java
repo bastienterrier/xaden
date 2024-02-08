@@ -1,6 +1,8 @@
 package com.masterdevil.xaden.application;
 
+import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.ScreenNavigation;
+import com.masterdevil.xaden.player.application.SelectPlayerUseCase;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,11 +26,11 @@ public class TerminalApplication {
       +
       "       \\/       \\/          \\/            \\/     \\/                       \\_/       \\/        \\/        \\/         \\/ \n");
 
-    loop("player-selection");
+    loop(SelectPlayerUseCase.class);
   }
 
-  private void loop(String target) {
-    loop(navigation.navigate(target));
+  private void loop(Class<? extends Displayable> target) {
+    loop(navigation.navigate(target).get());
   }
 
 }

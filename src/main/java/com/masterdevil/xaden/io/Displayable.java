@@ -1,5 +1,6 @@
 package com.masterdevil.xaden.io;
 
+import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,6 @@ public abstract class Displayable {
   protected Input input;
   protected Output output;
 
-  public abstract String show();
+  public abstract Either<Exception, Class<? extends Displayable>> show();
 
 }

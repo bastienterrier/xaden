@@ -3,9 +3,12 @@ package com.masterdevil.xaden.player.application;
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
 import com.masterdevil.xaden.io.Output;
+import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
+import io.vavr.API;
 import io.vavr.collection.List;
+import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,12 +22,12 @@ public class SelectPlayerUseCase extends Displayable {
   }
 
   @Override
-  public String show() {
+  public Either<Exception, Class<? extends Displayable>> show() {
     playerRepository.getAll()
       .peek(this::showPlayers)
       .peek(this::selectPlayer);
 
-    return "menu";
+    return API.Right(DisplayMenuUseCase.class);
   }
 
   private void selectPlayer(List<Player> players) {
