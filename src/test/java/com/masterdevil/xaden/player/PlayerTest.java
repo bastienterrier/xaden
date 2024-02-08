@@ -58,6 +58,6 @@ class PlayerTest {
   void toString_override() {
     Player player = new Player("Masterdevil");
 
-    assertThat(player).hasToString("---- Masterdevil - lvl. 1 [0;0] ----");
+    assertThat(player).hasToString("---- Masterdevil - lvl. 1 - hp. 50 - [0;0] ----");
   }
 }

@@ -2,6 +2,7 @@ package com.masterdevil.xaden.player;
 
 import static com.masterdevil.xaden.domain.Unit.UNIT;
 
+import com.masterdevil.xaden.domain.Fightable;
 import com.masterdevil.xaden.domain.Unit;
 import com.masterdevil.xaden.map.Direction;
 import com.masterdevil.xaden.map.Map;
@@ -9,23 +10,19 @@ import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Player {
+@Getter
+public class Player extends Fightable {
 
-  private UUID id;
-  private String name;
-  private int level;
+  private final UUID id;
+  private final String name;
+
   private Tuple2<Integer, Integer> coordinates;
 
   public Player(String name) {
+    super(1, 50);
     this.name = name;
-    this.level = 1;
     this.id = UUID.randomUUID();
     this.coordinates = new Tuple2<>(0, 0);
   }
@@ -56,7 +53,7 @@ public class Player {
     if (map.getZones()
       .get(targetCoordinates._1)
       .get(targetCoordinates._2)
-      .minLevel() > level) {
+      .minLevel() > getLevel()) {
       return API.Left(new Exception("Player do not have the required level to access the zone"));
     }
 
@@ -67,6 +64,7 @@ public class Player {
 
   @Override
   public String toString() {
-    return String.format("---- %s - lvl. %d [%d;%d] ----", name, level, coordinates._1, coordinates._2);
+    return String.format("---- %s - lvl. %d - hp. %d - [%d;%d] ----", name, getLevel(), getHp(), coordinates._1,
+      coordinates._2);
   }
 }
