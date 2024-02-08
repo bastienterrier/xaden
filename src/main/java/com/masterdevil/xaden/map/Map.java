@@ -1,4 +1,4 @@
-package com.masterdevil.xaden.player.map;
+package com.masterdevil.xaden.map;
 
 import io.vavr.collection.List;
 import lombok.Getter;

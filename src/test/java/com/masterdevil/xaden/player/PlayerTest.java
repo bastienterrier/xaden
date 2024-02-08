@@ -3,7 +3,7 @@ package com.masterdevil.xaden.player;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.masterdevil.xaden.domain.Unit;
-import com.masterdevil.xaden.player.map.Direction;
+import com.masterdevil.xaden.map.Direction;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;

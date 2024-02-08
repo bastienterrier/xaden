@@ -3,6 +3,7 @@ package com.masterdevil.xaden.menu.application;
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.Input;
 import com.masterdevil.xaden.io.Output;
+import com.masterdevil.xaden.map.application.ExploreMapUseCase;
 import com.masterdevil.xaden.player.Player;
 import com.masterdevil.xaden.player.PlayerRepository;
 import com.masterdevil.xaden.player.application.NavigateUseCase;
@@ -34,12 +35,15 @@ public class DisplayMenuUseCase extends Displayable {
 
     output.display(player.toString());
     output.display("What do you wanna do?");
-    output.display("1. Let's move");
-    output.display("2. See my inventory");
-    output.display("3. Exit game");
+    output.display("1. Explore the place");
+    output.display("2. Let's move");
+    output.display("3. See my inventory");
+    output.display("4. Exit game");
 
     return API.Right(switch (input.getInt()) {
       case 1:
+        yield ExploreMapUseCase.class;
+      case 2:
         yield NavigateUseCase.class;
       default:
         yield DisplayMenuUseCase.class;

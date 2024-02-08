@@ -3,9 +3,9 @@ package com.masterdevil.xaden.player;
 import static com.masterdevil.xaden.domain.Unit.UNIT;
 
 import com.masterdevil.xaden.domain.Unit;
-import com.masterdevil.xaden.player.map.Direction;
-import com.masterdevil.xaden.player.map.Map;
-import com.masterdevil.xaden.player.map.MapZone;
+import com.masterdevil.xaden.map.Direction;
+import com.masterdevil.xaden.map.Map;
+import com.masterdevil.xaden.map.MapZone;
 import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
