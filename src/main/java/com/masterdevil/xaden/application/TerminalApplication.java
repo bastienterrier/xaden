@@ -2,7 +2,7 @@ package com.masterdevil.xaden.application;
 
 import com.masterdevil.xaden.io.Displayable;
 import com.masterdevil.xaden.io.ScreenNavigation;
-import com.masterdevil.xaden.player.application.SelectPlayerUseCase;
+import com.masterdevil.xaden.player.application.SelectOrCreatePlayerUseCase;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +26,7 @@ public class TerminalApplication {
       +
       "       \\/       \\/          \\/            \\/     \\/                       \\_/       \\/        \\/        \\/         \\/ \n");
 
-    loop(SelectPlayerUseCase.class);
+    loop(SelectOrCreatePlayerUseCase.class);
   }
 
   private void loop(Class<? extends Displayable> target) {

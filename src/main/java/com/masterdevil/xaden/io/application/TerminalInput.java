@@ -11,4 +11,9 @@ public class TerminalInput implements Input {
   public int getInt() {
     return innerInput.nextInt();
   }
+
+  @Override
+  public String getString() {
+    return innerInput.next();
+  }
 }

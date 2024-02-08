@@ -13,9 +13,7 @@ import java.util.UUID;
 
 public class InMemoryPlayerRepository implements PlayerRepository {
 
-  private List<Player> players = List.of(
-    new Player("Masterdevil")
-  );
+  private List<Player> players = List.empty();
 
   private UUID selectedPlayerID;
 
