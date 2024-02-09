@@ -35,8 +35,20 @@ public class InMemoryPlayerRepository implements PlayerRepository {
 
   @Override
   public Either<Exception, Unit> save(Player player) {
-    players = players.append(player);
+    if (exists(player)) {
+      players = players.update(getIndex(player), player);
+    } else {
+      players = players.append(player);
+    }
 
     return Either.right(UNIT);
+  }
+
+  private boolean exists(Player player) {
+    return players.map(Player::getId).contains(player.getId());
+  }
+
+  private int getIndex(Player player) {
+    return players.map(Player::getId).indexOf(player.getId());
   }
 }

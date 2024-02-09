@@ -21,7 +21,7 @@ public class Player extends Fightable {
   private Tuple2<Integer, Integer> coordinates;
 
   public Player(String name, Race race) {
-    super(1, 50, 10, race.skills());
+    super(1, 50, 50, 10, 10, race.skills());
     this.id = UUID.randomUUID();
     this.name = name;
     this.race = race;
