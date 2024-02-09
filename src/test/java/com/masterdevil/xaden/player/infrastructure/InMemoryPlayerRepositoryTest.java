@@ -1,6 +1,8 @@
 package com.masterdevil.xaden.player.infrastructure;
 
 import static com.masterdevil.xaden.domain.Unit.UNIT;
+import static com.masterdevil.xaden.player.fixtures.PlayerFixture.APARK;
+import static com.masterdevil.xaden.player.fixtures.PlayerFixture.MASTERDEVIL;
 import static io.vavr.API.None;
 import static io.vavr.API.Some;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,7 +11,6 @@ import com.masterdevil.xaden.domain.Unit;
 import com.masterdevil.xaden.map.Direction;
 import com.masterdevil.xaden.map.fixtures.MapFixture;
 import com.masterdevil.xaden.player.Player;
-import com.masterdevil.xaden.player.Race;
 import io.vavr.collection.List;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
@@ -30,7 +31,7 @@ class InMemoryPlayerRepositoryTest {
 
   @Test
   void createAndUpdate() {
-    Player player = new Player("Masterdevil", Race.SWORDSMAN);
+    Player player = MASTERDEVIL();
 
     // Create
     Either<Exception, Unit> save = cut.save(player);
@@ -57,8 +58,8 @@ class InMemoryPlayerRepositoryTest {
 
   @Test
   void createMultiplePlayersAndSelectOne() {
-    Player player1 = new Player("Masterdevil", Race.SWORDSMAN);
-    Player player2 = new Player("Apark", Race.BOWMAN);
+    Player player1 = MASTERDEVIL();
+    Player player2 = APARK();
 
     cut.save(player1);
     cut.save(player2);

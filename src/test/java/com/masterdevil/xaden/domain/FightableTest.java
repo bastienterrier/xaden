@@ -1,8 +1,11 @@
 package com.masterdevil.xaden.domain;
 
+import static com.masterdevil.xaden.domain.Unit.UNIT;
+import static com.masterdevil.xaden.player.fixtures.PlayerFixture.APARK;
+import static com.masterdevil.xaden.player.fixtures.PlayerFixture.MASTERDEVIL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.vavr.API;
+import com.masterdevil.xaden.player.Player;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +15,8 @@ class FightableTest {
 
   @Test
   void attack() {
-
-    AnyFightable entity = new AnyFightable(1, 10, 10);
-    AnyFightable target = new AnyFightable(1, 15, 15);
+    Player entity = MASTERDEVIL();
+    Player target = APARK();
 
     Either<Exception, Unit> result = entity.attack(SKILL, target);
 
@@ -22,10 +24,35 @@ class FightableTest {
     assertThat(result.getLeft().getMessage()).isEqualTo("Not implemented yet");
   }
 
-  static class AnyFightable extends Fightable {
+  @Test
+  void suffer_negativeDamage() {
+    Either<Exception, Unit> suffer = MASTERDEVIL().suffer(-1);
 
-    public AnyFightable(int level, int hp, int mana) {
-      super(level, hp, hp, mana, mana, API.List(SKILL));
-    }
+    assertThat(suffer.isLeft()).isTrue();
+    assertThat(suffer.getLeft().getMessage()).isEqualTo("Cannot suffer negative damage");
+  }
+
+  @Test
+  void suffer_inHpRange() {
+    Player cut = MASTERDEVIL();
+
+    Either<Exception, Unit> suffer = cut.suffer(10);
+
+    assertThat(suffer.isRight()).isTrue();
+    assertThat(suffer.get()).isEqualTo(UNIT);
+
+    assertThat(cut.getHp()).isEqualTo(40);
+  }
+
+  @Test
+  void suffer_outOfHpRange() {
+    Player cut = MASTERDEVIL();
+
+    Either<Exception, Unit> suffer = cut.suffer(100);
+
+    assertThat(suffer.isRight()).isTrue();
+    assertThat(suffer.get()).isEqualTo(UNIT);
+
+    assertThat(cut.getHp()).isZero();
   }
 }

@@ -1,5 +1,6 @@
 package com.masterdevil.xaden.player;
 
+import static com.masterdevil.xaden.player.fixtures.PlayerFixture.MASTERDEVIL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.masterdevil.xaden.domain.Unit;
@@ -26,7 +27,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidBounds() {
-    Player player = new Player("Masterdevil", Race.SWORDSMAN);
+    Player player = MASTERDEVIL();
 
     assertBoundsError(player.navigateTo(Direction.WEST, MapFixture.MAP));
     assertBoundsError(player.navigateTo(Direction.NORTH, MapFixture.MAP));
@@ -34,7 +35,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_invalidLevel() {
-    Player player = new Player("Masterdevil", Race.SWORDSMAN);
+    Player player = MASTERDEVIL();
 
     player.navigateTo(Direction.EAST, MapFixture.MAP);
 
@@ -46,7 +47,7 @@ class PlayerTest {
 
   @Test
   void navigateTo_success() {
-    Player player = new Player("Masterdevil", Race.SWORDSMAN);
+    Player player = MASTERDEVIL();
 
     Either<Exception, Unit> result = player.navigateTo(Direction.EAST, MapFixture.MAP);
 
@@ -56,7 +57,7 @@ class PlayerTest {
 
   @Test
   void toString_override() {
-    Player player = new Player("Masterdevil", Race.SWORDSMAN);
+    Player player = MASTERDEVIL();
 
     assertThat(player).hasToString("---- Masterdevil - lvl. 1 - hp. 50 - [0;0] ----");
   }

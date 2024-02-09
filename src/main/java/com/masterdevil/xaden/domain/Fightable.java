@@ -1,6 +1,9 @@
 package com.masterdevil.xaden.domain;
 
-import io.vavr.API;
+import static com.masterdevil.xaden.domain.Unit.UNIT;
+import static io.vavr.API.Left;
+import static io.vavr.API.Right;
+
 import io.vavr.collection.List;
 import io.vavr.control.Either;
 import lombok.AllArgsConstructor;
@@ -27,6 +30,20 @@ public abstract class Fightable {
     // 2bis. Add randomness
 
     // 3. Withdraw damage to Target HP (add `suffer` method to Fightable)
-    return API.Left(new Exception("Not implemented yet"));
+    return Left(new Exception("Not implemented yet"));
+  }
+
+  public Either<Exception, Unit> suffer(int damage) {
+    if (damage < 0) {
+      return Left(new Exception("Cannot suffer negative damage"));
+    }
+
+    if (damage >= hp) {
+      hp = 0;
+    } else {
+      hp = hp - damage;
+    }
+
+    return Right(UNIT);
   }
 }
