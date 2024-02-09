@@ -6,22 +6,53 @@ import static com.masterdevil.xaden.player.fixtures.PlayerFixture.MASTERDEVIL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.masterdevil.xaden.player.Player;
+import com.masterdevil.xaden.player.Race;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 
 class FightableTest {
 
-  private static final Skill SKILL = new Skill("skill name", 1);
+  private static final Skill INVALID_SKILL = new Skill("skill name", 1);
 
   @Test
-  void attack() {
+  void attack_invalidSkill() {
     Player entity = MASTERDEVIL();
     Player target = APARK();
 
-    Either<Exception, Unit> result = entity.attack(SKILL, target);
+    Either<Exception, Unit> result = entity.attack(INVALID_SKILL, target);
 
     assertThat(result.isLeft()).isTrue();
-    assertThat(result.getLeft().getMessage()).isEqualTo("Not implemented yet");
+    assertThat(result.getLeft().getMessage()).isEqualTo("This skill does not belong to the entity");
+  }
+
+  @Test
+  void attack_tooHighSkill() {
+    Player entity = MASTERDEVIL();
+    Player target = APARK();
+    Skill tooHighSkill = Race.SWORDSMAN.skills().last();
+
+    Either<Exception, Unit> result = entity.attack(tooHighSkill, target);
+
+    assertThat(result.isLeft()).isTrue();
+    assertThat(result.getLeft().getMessage()).isEqualTo(
+      "The entity does not have the sufficient level to use this skill");
+  }
+
+  @Test
+  void attack_success() {
+    Player entity = MASTERDEVIL();
+    Player target = APARK();
+    int initialEntityHp = entity.getHp();
+    int initialTargetHp = target.getHp();
+    Skill skill = Race.SWORDSMAN.skills().head();
+
+    Either<Exception, Unit> result = entity.attack(skill, target);
+
+    assertThat(result.isRight()).isTrue();
+    assertThat(result.get()).isEqualTo(UNIT);
+
+    assertThat(initialTargetHp).isGreaterThan(target.getHp());
+    assertThat(initialEntityHp).isEqualTo(entity.getHp());
   }
 
   @Test

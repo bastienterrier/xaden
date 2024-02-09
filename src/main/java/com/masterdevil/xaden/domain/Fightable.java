@@ -24,13 +24,22 @@ public abstract class Fightable {
    * Applies the amount of damage caused by the entity's skill to the {@code target} hp.
    */
   public Either<Exception, Unit> attack(Skill skill, Fightable target) {
-    // 1. Assert the skill belong to the Entity
+    if (!skills.contains(skill)) {
+      return Left(new Exception("This skill does not belong to the entity"));
+    }
 
-    // 2. Compute damage
-    // 2bis. Add randomness
+    if (skill.unlockLevel() > level) {
+      return Left(new Exception("The entity does not have the sufficient level to use this skill"));
+    }
 
-    // 3. Withdraw damage to Target HP (add `suffer` method to Fightable)
-    return Left(new Exception("Not implemented yet"));
+    /**
+     * TODO
+     * Step 1. Use randomness
+     * Step 2. Use entity characteristic (strength, ...)
+     */
+    int damage = skill.baseDamage();
+
+    return target.suffer(damage);
   }
 
   public Either<Exception, Unit> suffer(int damage) {
