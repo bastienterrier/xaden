@@ -4,7 +4,7 @@ import com.masterdevil.xaden.domain.Skill;
 import io.vavr.API;
 import io.vavr.collection.List;
 
-public record Race(String name, List<Skill> skills) {
+public record Race(String name, List<Skill> skills, int hp, int mana) {
 
   public static Race SWORDSMAN = new Race("Swordsman", API.List(
     new Skill("Ethereal Blade", 1),
@@ -27,7 +27,7 @@ public record Race(String name, List<Skill> skills) {
     new Skill("Warrior's Trance", 85),
     new Skill("Final Blow", 90),
     new Skill("Warrior's Flame", 100)
-  ));
+  ), 50, 30);
 
   public static Race BOWMAN = new Race("Bowman", API.List(
     new Skill("Flaming Arrow", 1),
@@ -49,5 +49,6 @@ public record Race(String name, List<Skill> skills) {
     new Skill("Silver Streak Arrow", 80),
     new Skill("Telluric Surge", 85),
     new Skill("Flamboyant Mirage", 90),
-    new Skill("Spiritual Torrent", 100)));
+    new Skill("Spiritual Torrent", 100)
+  ), 50, 30);
 }

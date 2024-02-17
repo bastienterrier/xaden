@@ -39,20 +39,42 @@ class FightableTest {
   }
 
   @Test
+  void attack_notEnoughMana() {
+    Player entity = MASTERDEVIL();
+    Player target = APARK();
+    Skill skill = Race.SWORDSMAN.skills().head();
+
+    entity.attack(skill, target);
+    entity.attack(skill, target);
+    entity.attack(skill, target);
+
+    Either<Exception, Unit> result = entity.attack(skill, target);
+
+    assertThat(result.isLeft()).isTrue();
+    assertThat(result.getLeft().getMessage()).isEqualTo(
+      "The entity does not have the sufficient mana to use this skill");
+  }
+
+  @Test
   void attack_success() {
     Player entity = MASTERDEVIL();
     Player target = APARK();
     int initialEntityHp = entity.getHp();
+    int initialEntityMana = entity.getMana();
     int initialTargetHp = target.getHp();
     Skill skill = Race.SWORDSMAN.skills().head();
 
     Either<Exception, Unit> result = entity.attack(skill, target);
+
+    int remainingEntityMana = entity.getMana();
 
     assertThat(result.isRight()).isTrue();
     assertThat(result.get()).isEqualTo(UNIT);
 
     assertThat(initialTargetHp).isGreaterThan(target.getHp());
     assertThat(initialEntityHp).isEqualTo(entity.getHp());
+    assertThat(initialEntityMana).isGreaterThan(remainingEntityMana);
+    assertThat(remainingEntityMana).isNotNegative();
   }
 
   @Test
