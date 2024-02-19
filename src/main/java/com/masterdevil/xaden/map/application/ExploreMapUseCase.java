@@ -6,6 +6,7 @@ import com.masterdevil.xaden.io.Output;
 import com.masterdevil.xaden.map.Map;
 import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
 import com.masterdevil.xaden.player.PlayerRepository;
+import com.masterdevil.xaden.player.application.FightMonsterUseCase;
 import io.vavr.Tuple2;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,10 @@ public class ExploreMapUseCase extends Displayable {
 
     return Map.DEFAULT_MAP.getZone(playerCoordinates)
       .peek(zone -> output.display(zone.toString()))
-      .map(ignored -> DisplayMenuUseCase.class);
+      .map(zone -> zone.maybeMonster().fold(
+        () -> DisplayMenuUseCase.class,
+        monster -> FightMonsterUseCase.class)
+      );
   }
 
 }

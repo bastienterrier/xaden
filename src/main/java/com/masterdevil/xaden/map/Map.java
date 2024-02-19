@@ -1,5 +1,8 @@
 package com.masterdevil.xaden.map;
 
+import static io.vavr.API.Some;
+
+import com.masterdevil.xaden.monster.Monster;
 import io.vavr.API;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
@@ -9,7 +12,7 @@ import lombok.Getter;
 @Getter
 public class Map {
 
-  private static final MapZone PLAIN = new MapZone("plain", 1);
+  private static final MapZone PLAIN = new MapZone("plain", 1, Some(Monster.BISON));
   private static final MapZone MOUNTAIN = new MapZone("mountain", 10);
   public static final Map DEFAULT_MAP = new Map(
     API.List(

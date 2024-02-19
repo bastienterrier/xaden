@@ -3,6 +3,7 @@ package com.masterdevil.xaden.io;
 import com.masterdevil.xaden.map.application.ExploreMapUseCase;
 import com.masterdevil.xaden.menu.application.DisplayMenuUseCase;
 import com.masterdevil.xaden.player.application.CreatePlayerUseCase;
+import com.masterdevil.xaden.player.application.FightMonsterUseCase;
 import com.masterdevil.xaden.player.application.NavigateUseCase;
 import com.masterdevil.xaden.player.application.SelectOrCreatePlayerUseCase;
 import com.masterdevil.xaden.player.application.SelectPlayerUseCase;
@@ -18,16 +19,19 @@ public class ScreenNavigation {
   private final SelectOrCreatePlayerUseCase selectOrCreatePlayerUseCase;
   private final CreatePlayerUseCase createPlayerUseCase;
   private final ExploreMapUseCase exploreMapUseCase;
+  private final FightMonsterUseCase fightMonsterUseCase;
 
   public ScreenNavigation(DisplayMenuUseCase displayMenuUseCase, SelectPlayerUseCase selectPlayerUseCase,
     NavigateUseCase navigateUseCase, SelectOrCreatePlayerUseCase selectOrCreatePlayerUseCase,
-    CreatePlayerUseCase createPlayerUseCase, ExploreMapUseCase exploreMapUseCase) {
+    CreatePlayerUseCase createPlayerUseCase, ExploreMapUseCase exploreMapUseCase,
+    FightMonsterUseCase fightMonsterUseCase) {
     this.displayMenuUseCase = displayMenuUseCase;
     this.selectPlayerUseCase = selectPlayerUseCase;
     this.navigateUseCase = navigateUseCase;
     this.selectOrCreatePlayerUseCase = selectOrCreatePlayerUseCase;
     this.createPlayerUseCase = createPlayerUseCase;
     this.exploreMapUseCase = exploreMapUseCase;
+    this.fightMonsterUseCase = fightMonsterUseCase;
   }
 
   /**
@@ -48,6 +52,9 @@ public class ScreenNavigation {
     }
     if (target == ExploreMapUseCase.class) {
       return exploreMapUseCase.show();
+    }
+    if (target == FightMonsterUseCase.class) {
+      return fightMonsterUseCase.show();
     }
 
     return displayMenuUseCase.show();
